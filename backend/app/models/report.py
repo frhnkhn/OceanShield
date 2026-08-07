@@ -37,6 +37,8 @@ class Report(Base):
     gemini_processed_at = Column(DateTime(timezone=True), nullable=True)
     gemini_error = Column(String, nullable=True)
 
+    weather_data = Column(JSON, nullable=True)
+
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
 

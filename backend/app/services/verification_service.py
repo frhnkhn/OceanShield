@@ -43,8 +43,20 @@ def calculate_verification(db: Session, report_id: int) -> dict:
         factors.append(f"Fused with {nearby_count} nearby reporting signals (+{min(25, nearby_count * 10)}%)")
 
     # 4. Weather Severity checks
-    # Simulate high winds/rain correlation (e.g. severity 4/5 defaults rain index)
-    if report.severity >= 4:
+    # Use real weather data snapshot if available
+    has_extreme_weather = False
+    if report.weather_data and isinstance(report.weather_data, dict):
+        w = report.weather_data
+        wind_speed = w.get("wind_speed", 0.0)
+        rainfall = w.get("rainfall", 0.0)
+        cyclone_warning = w.get("cyclone_warning", False)
+        
+        if wind_speed > 30.0 or rainfall > 10.0 or cyclone_warning:
+            has_extreme_weather = True
+            factors.append(f"Extreme local weather verified (Wind: {wind_speed} km/h, Rain: {rainfall} mm) (+20%)")
+            score += 20
+            
+    if not has_extreme_weather and report.severity >= 4:
         score += 15
         factors.append("Extreme local weather indicators correlate with report (+15%)")
 

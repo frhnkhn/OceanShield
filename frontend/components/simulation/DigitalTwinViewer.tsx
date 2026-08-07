@@ -25,19 +25,19 @@ export default function DigitalTwinViewer() {
         y: Math.random() * canvas.height,
         vx: (Math.random() - 0.5) * 1.5,
         vy: (Math.random() - 0.5) * 1.5,
-        color: Math.random() > 0.6 ? "#06b6d4" : "#10b981"
+        color: Math.random() > 0.6 ? "#2563eb" : "#059669"
       });
     }
 
     const render = () => {
       if (!ctx || !canvas) return;
 
-      // Dark background
-      ctx.fillStyle = "#020617";
+      // Light background
+      ctx.fillStyle = "#f8fafc";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Draw grid grid
-      ctx.strokeStyle = "#0f172a";
+      // Draw grid
+      ctx.strokeStyle = "#e2e8f0";
       ctx.lineWidth = 1;
       const gridSize = 30;
       for (let x = 0; x < canvas.width; x += gridSize) {
@@ -54,7 +54,7 @@ export default function DigitalTwinViewer() {
       }
 
       // Draw coastal shoreline boundary line
-      ctx.strokeStyle = "#1e293b";
+      ctx.strokeStyle = "#cbd5e1";
       ctx.lineWidth = 3;
       ctx.beginPath();
       ctx.moveTo(canvas.width * 0.3, 0);
@@ -125,15 +125,15 @@ export default function DigitalTwinViewer() {
   }, [isPlaying, speed, timeStep]);
 
   return (
-    <div className="rounded-xl border border-cyan-500/20 bg-slate-950/40 p-5 backdrop-blur-md flex flex-col gap-4">
-      <div className="flex justify-between items-center border-b border-slate-900 pb-2">
-        <h4 className="font-bold text-cyan-400 text-xs uppercase tracking-wider flex items-center gap-1.5">
-          <Activity className="h-4 w-4 text-cyan-400" /> Digital Twin Simulation Room
+    <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm flex flex-col gap-4">
+      <div className="flex justify-between items-center border-b border-slate-100 pb-2">
+        <h4 className="font-bold text-slate-800 text-xs uppercase tracking-wider flex items-center gap-1.5">
+          <Activity className="h-4 w-4 text-slate-500" /> Digital Twin Simulation Room
         </h4>
         <span className="font-mono text-[9px] text-slate-500">Tsteps: {timeStep}</span>
       </div>
 
-      <div className="relative rounded-lg overflow-hidden border border-slate-900 bg-slate-950">
+      <div className="relative rounded overflow-hidden border border-slate-200 bg-slate-50">
         <canvas 
           ref={canvasRef} 
           width={400} 
@@ -141,8 +141,8 @@ export default function DigitalTwinViewer() {
           className="w-full h-auto block" 
         />
         
-        <div className="absolute top-3 right-3 rounded bg-black/70 px-2 py-0.5 text-[8px] text-red-400 font-mono flex items-center gap-1 border border-red-500/20">
-          <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-ping" />
+        <div className="absolute top-3 right-3 rounded bg-red-50 px-2 py-0.5 text-[8px] text-red-700 font-mono flex items-center gap-1 border border-red-200">
+          <span className="h-1.5 w-1.5 rounded-full bg-red-650" />
           SIMULATION ACTIVE
         </div>
       </div>
@@ -152,21 +152,21 @@ export default function DigitalTwinViewer() {
         <div className="flex gap-2">
           <button
             onClick={() => setIsPlaying(p => !p)}
-            className="p-2 rounded bg-slate-900 border border-slate-800 text-cyan-400 hover:text-white"
+            className="p-2 rounded bg-slate-50 border border-slate-250 text-slate-700 hover:text-slate-900 transition-colors"
           >
             {isPlaying ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5" />}
           </button>
           
           <button
             onClick={() => setTimeStep(0)}
-            className="p-2 rounded bg-slate-900 border border-slate-800 text-cyan-400 hover:text-white"
+            className="p-2 rounded bg-slate-50 border border-slate-250 text-slate-700 hover:text-slate-900 transition-colors"
           >
             <RotateCcw className="h-3.5 w-3.5" />
           </button>
         </div>
 
         <div className="flex-1 flex items-center gap-2">
-          <span className="text-[10px] text-slate-500">Speed</span>
+          <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Speed</span>
           <input
             type="range"
             min="0.5"
@@ -174,9 +174,9 @@ export default function DigitalTwinViewer() {
             step="0.5"
             value={speed}
             onChange={(e) => setSpeed(parseFloat(e.target.value))}
-            className="flex-1 accent-cyan-500 h-1 rounded bg-slate-850"
+            className="flex-1 accent-blue-900 h-1 rounded bg-slate-200"
           />
-          <span className="font-mono text-[10px] text-white w-6">{speed}x</span>
+          <span className="font-mono text-[10px] text-slate-900 w-6 font-bold">{speed}x</span>
         </div>
       </div>
     </div>

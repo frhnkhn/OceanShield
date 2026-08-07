@@ -30,11 +30,19 @@ export default function Dashboard() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [time, setTime] = useState("");
   const [activeTab, setActiveTab] = useState<"eoc" | "social" | "simulation">("eoc");
+  const [role, setRole] = useState<string>("citizen");
 
   // Judge Simulation States
   const [scenario, setScenario] = useState("None");
   const [disasterMode, setDisasterMode] = useState(false);
   const [battery, setBattery] = useState(100);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedRole = localStorage.getItem("user_role") || "citizen";
+      setRole(savedRole);
+    }
+  }, []);
 
   useEffect(() => {
     const updateTime = () => {
@@ -64,7 +72,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className={`min-h-screen bg-slate-950 text-white flex flex-col font-sans transition-all duration-300 ${
+    <div className={`min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans transition-all duration-300 ${
       battery < 5 ? "contrast-125 saturate-50" : ""
     }`}>
       <Navbar />
@@ -77,94 +85,101 @@ export default function Dashboard() {
 
         
         {/* Banner with EOC status */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 rounded-xl border border-cyan-500/30 bg-gradient-to-r from-cyan-950/20 to-slate-950/40 p-6 backdrop-blur-md shadow-[0_0_20px_rgba(6,182,212,0.1)]">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
           <div>
-            <div className="flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-widest font-bold">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-500"></span>
+            <div className="flex items-center gap-2 text-slate-500 font-sans text-xs uppercase tracking-wider font-bold">
+              <span className="relative flex h-2 w-2">
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
               </span>
               Emergency Operations Command (EOC) — Status: {disasterMode ? "Offline Mesh Activated" : "Operational"}
             </div>
             
-            <h2 className="mt-2 text-3xl font-extrabold tracking-tight text-white">
-              Command Station <span className="text-cyan-400 font-mono">{currentUser?.email?.split("@")[0] || "Staff"}</span>
-              {scenario !== "None" && <span className="text-red-500 font-mono text-sm ml-3">SIMULATING: {scenario.toUpperCase()}</span>}
+            <h2 className="mt-1 text-2xl font-bold tracking-tight text-slate-900">
+              Command Station <span className="text-blue-900 font-mono">{currentUser?.email?.split("@")[0] || "Staff"}</span>
+              {scenario !== "None" && <span className="text-red-650 font-mono text-sm ml-3 font-bold">SIMULATING: {scenario.toUpperCase()}</span>}
             </h2>
             
-            <p className="text-slate-400 text-sm mt-1">
-              {battery < 20 ? "🚨 Low power: telemetry background poll halted, animation FPS reduced." : "Real-time OceanShield AI hazard monitoring console & GIS response control."}
+            <p className="text-slate-500 text-xs mt-1">
+              {battery < 20 ? "🚨 Low power: telemetry background poll halted, animation FPS reduced." : "Real-time OceanShield hazard monitoring console & GIS response control."}
             </p>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="rounded-lg bg-slate-900 border border-slate-800 px-4 py-2 text-sm font-mono text-cyan-300 flex items-center gap-2">
-              <Clock className="h-4 w-4 text-cyan-400" />
+            <div className="rounded border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-mono text-slate-700 flex items-center gap-2">
+              <Clock className="h-3.5 w-3.5 text-slate-500" />
               {time}
             </div>
 
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 rounded-lg bg-red-950/40 hover:bg-red-500 border border-red-500/40 hover:border-red-500 px-4 py-2.5 text-sm font-bold text-red-400 hover:text-white transition-all duration-200"
+              className="flex items-center gap-2 rounded bg-slate-100 hover:bg-slate-200 border border-slate-300 px-3 py-1.5 text-xs font-bold text-slate-700 transition-all duration-200"
             >
-              <LogOut className="h-4 w-4" />
+              <LogOut className="h-3.5 w-3.5" />
               Logout
             </button>
           </div>
         </div>
 
         {/* Tab switch navigation */}
-        <div className="flex gap-2 border-b border-slate-800 pb-px text-sm">
+        <div className="flex gap-2 border-b border-slate-200 pb-px text-sm">
           <button
             onClick={() => setActiveTab("eoc")}
             className={`flex items-center gap-2 px-4 py-2 border-b-2 font-bold transition-all ${
               activeTab === "eoc" 
-                ? "border-cyan-500 text-cyan-400" 
-                : "border-transparent text-slate-400 hover:text-white"
+                ? "border-blue-900 text-blue-900" 
+                : "border-transparent text-slate-500 hover:text-slate-800"
             }`}
           >
-            <Shield className="h-4 w-4" /> Command Center EOC
+            <Shield className="h-4 w-4" /> {role === "citizen" ? "Citizen Portal" : role === "volunteer" ? "Volunteer Command" : "Command Center EOC"}
           </button>
-          <button
-            onClick={() => setActiveTab("social")}
-            className={`flex items-center gap-2 px-4 py-2 border-b-2 font-bold transition-all ${
-              activeTab === "social" 
-                ? "border-cyan-500 text-cyan-400" 
-                : "border-transparent text-slate-400 hover:text-white"
-            }`}
-          >
-            <MessageSquare className="h-4 w-4" /> Social Intelligence Deck
-          </button>
-          <button
-            onClick={() => setActiveTab("simulation")}
-            className={`flex items-center gap-2 px-4 py-2 border-b-2 font-bold transition-all ${
-              activeTab === "simulation" 
-                ? "border-cyan-500 text-cyan-400" 
-                : "border-transparent text-slate-400 hover:text-white"
-            }`}
-          >
-            <Activity className="h-4 w-4" /> Simulation & Digital Twin
-          </button>
+          
+          {role !== "citizen" && (
+            <button
+              onClick={() => setActiveTab("social")}
+              className={`flex items-center gap-2 px-4 py-2 border-b-2 font-bold transition-all ${
+                activeTab === "social" 
+                  ? "border-blue-900 text-blue-900" 
+                  : "border-transparent text-slate-500 hover:text-slate-800"
+              }`}
+            >
+              <MessageSquare className="h-4 w-4" /> Social Intelligence Deck
+            </button>
+          )}
+
+          {role === "govt" && (
+            <button
+              onClick={() => setActiveTab("simulation")}
+              className={`flex items-center gap-2 px-4 py-2 border-b-2 font-bold transition-all ${
+                activeTab === "simulation" 
+                  ? "border-blue-900 text-blue-900" 
+                  : "border-transparent text-slate-500 hover:text-slate-800"
+              }`}
+            >
+              <Activity className="h-4 w-4" /> Simulation & Digital Twin
+            </button>
+          )}
         </div>
 
         {/* Tab Panels */}
         {activeTab === "eoc" && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="flex flex-col gap-6">
-              <SihControlCenter 
-                onSimulateScenario={setScenario}
-                onToggleDisasterMode={setDisasterMode}
-                onSetBatteryLevel={setBattery}
-              />
+              {role === "govt" && (
+                <SihControlCenter 
+                  onSimulateScenario={setScenario}
+                  onToggleDisasterMode={setDisasterMode}
+                  onSetBatteryLevel={setBattery}
+                />
+              )}
               <RiskMeter />
               <WeatherWidget />
-              <AiForecast scenario={scenario} />
+              {role !== "citizen" && <AiForecast scenario={scenario} />}
             </div>
 
             <div className="flex flex-col gap-6">
               <StatsCards />
-              <DroneDashboard />
-              <OperationalIntelligence />
+              {role === "govt" && <DroneDashboard />}
+              {role !== "citizen" && <OperationalIntelligence />}
               <DamageAssessment scenario={scenario} />
             </div>
 
@@ -175,13 +190,13 @@ export default function Dashboard() {
           </div>
         )}
 
-        {activeTab === "social" && (
+        {role !== "citizen" && activeTab === "social" && (
           <div className="flex flex-col gap-6">
             <SocialIntelligenceDashboard />
           </div>
         )}
 
-        {activeTab === "simulation" && (
+        {role === "govt" && activeTab === "simulation" && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <DigitalTwinViewer />
             <NationalAnalyticsDeck />

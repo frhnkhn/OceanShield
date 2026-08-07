@@ -4,6 +4,7 @@ from fastapi.staticfiles import StaticFiles
 
 from app.routers.health import router as health_router
 from app.routers.reports import router as reports_router
+from app.routers.weather import router as weather_router
 
 app = FastAPI(
     title="OceanShield API",
@@ -24,6 +25,7 @@ app.add_middleware(
 
 app.include_router(health_router)
 app.include_router(reports_router)
+app.include_router(weather_router)
 app.mount("/static", StaticFiles(directory="app/static", check_dir=False), name="static")
 
 

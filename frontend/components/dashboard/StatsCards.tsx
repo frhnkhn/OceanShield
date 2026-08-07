@@ -33,52 +33,59 @@ export default function StatsCards() {
     return () => clearInterval(interval);
   }, []);
 
-  const totalReports = reports.length || 24; // fallback to dummy default if DB empty
-  const verifiedReports = reports.filter(r => r.status === "verified").length || 14;
-  const pendingReports = reports.filter(r => r.status === "pending").length || 8;
-  const criticalAlerts = reports.filter(r => r.severity >= 4).length || 5;
+  const hasReports = reports.length > 0;
+  const totalReports = hasReports ? reports.length : 24;
+  const verifiedReports = hasReports ? reports.filter(r => r.status?.toLowerCase() === "verified").length : 14;
+  const pendingReports = hasReports ? reports.filter(r => r.status?.toLowerCase() === "pending").length : 8;
+  const criticalAlerts = hasReports ? reports.filter(r => r.severity >= 4).length : 5;
 
   const cards = [
     {
       title: "Total Reports",
       value: totalReports,
       icon: FileText,
-      color: "text-cyan-400 border-cyan-500/20 shadow-[0_0_15px_rgba(6,182,212,0.05)]",
+      color: "text-slate-600 border-slate-200",
+      iconColor: "text-blue-600 bg-blue-50 border-blue-100",
       desc: "All recorded hazard reports"
     },
     {
       title: "Verified Reports",
       value: verifiedReports,
       icon: CheckCircle,
-      color: "text-emerald-400 border-emerald-500/20 shadow-[0_0_15px_rgba(16,185,129,0.05)]",
+      color: "text-slate-650 border-slate-200",
+      iconColor: "text-emerald-650 bg-emerald-50 border-emerald-100",
       desc: "Confirmed by district authorities"
     },
     {
       title: "Pending Reports",
       value: pendingReports,
       icon: Clock,
-      color: "text-amber-400 border-amber-500/20 shadow-[0_0_15px_rgba(245,158,11,0.05)]",
+      color: "text-slate-650 border-slate-200",
+      iconColor: "text-amber-650 bg-amber-50 border-amber-100",
       desc: "Awaiting inspection"
     },
     {
       title: "Critical Alerts",
       value: criticalAlerts,
       icon: AlertOctagon,
-      color: "text-red-400 border-red-500/20 shadow-[0_0_15px_rgba(239,68,68,0.05)]",
+      color: "text-slate-650 border-slate-200",
+      iconColor: "text-red-650 bg-red-50 border-red-100",
       desc: "High severity incidents"
     },
     {
       title: "Safe Shelters Nearby",
       value: MOCK_SHELTERS.filter(s => s.status === "active").length,
       icon: Home,
-      color: "text-indigo-400 border-indigo-500/20 shadow-[0_0_15px_rgba(99,102,241,0.05)]",
+      color: "text-slate-650 border-slate-200",
+      iconColor: "text-indigo-650 bg-indigo-50 border-indigo-100",
       desc: "Active emergency shelters"
     },
     {
       title: "Online Responders",
       value: onlineCount,
       icon: Users,
-      color: "text-pink-400 border-pink-500/20 shadow-[0_0_15px_rgba(236,72,153,0.05)]",
+      color: "text-slate-650 border-slate-200",
+      iconColor: "text-purple-650 bg-purple-50 border-purple-100",
       desc: "Active command staff"
     }
   ];
@@ -90,26 +97,22 @@ export default function StatsCards() {
         return (
           <div
             key={i}
-            className={`relative overflow-hidden rounded-xl border bg-slate-950/40 p-5 backdrop-blur-md transition-all duration-300 hover:scale-[1.02] hover:border-cyan-500/40 ${card.color}`}
+            className="relative overflow-hidden rounded-lg border border-slate-200 bg-white p-5 shadow-sm hover:shadow-md transition-all duration-200"
           >
-            <div className="flex justify-between items-start">
-              <div>
-                <p className="text-sm font-semibold tracking-wider text-slate-400 uppercase">
-                  {card.title}
-                </p>
-                <h3 className="mt-2 text-3xl font-bold tracking-tight text-white">
-                  {card.value}
-                </h3>
-              </div>
-              <div className="rounded-lg bg-slate-900/60 p-2 border border-slate-800">
-                <Icon className="h-6 w-6" />
-              </div>
+            <div className="pr-14">
+              <p className="text-[11px] font-bold tracking-wider text-slate-500 uppercase leading-snug">
+                {card.title}
+              </p>
+              <h3 className="mt-1 text-3xl font-extrabold tracking-tight text-slate-900">
+                {card.value}
+              </h3>
             </div>
-            <p className="mt-3 text-xs text-slate-500">
+            <div className={`absolute top-5 right-5 rounded p-2 border ${card.iconColor}`}>
+              <Icon className="h-5 w-5" />
+            </div>
+            <p className="mt-3 text-[11px] text-slate-400 leading-normal">
               {card.desc}
             </p>
-            {/* Ambient scanner effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/5 to-transparent -translate-x-full animate-[shimmer_3s_infinite]" />
           </div>
         );
       })}

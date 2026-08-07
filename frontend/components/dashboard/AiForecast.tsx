@@ -48,19 +48,19 @@ export default function AiForecast({ scenario }: AiForecastProps) {
   ];
 
   return (
-    <div className="relative overflow-hidden rounded-xl border border-cyan-500/20 bg-slate-950/40 p-5 backdrop-blur-md">
-      <h3 className="font-bold text-cyan-400 tracking-wider flex items-center gap-2 text-sm uppercase border-b border-slate-800 pb-3">
-        <Activity className="h-4 w-4" /> AI Risk Forecast Engine
+    <div className="relative overflow-hidden rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+      <h3 className="font-bold text-slate-800 tracking-wider flex items-center gap-2 text-xs uppercase border-b border-slate-100 pb-3">
+        <Activity className="h-4 w-4 text-slate-500" /> AI Risk Forecast Engine
       </h3>
 
       <div className="mt-4 space-y-3.5">
         {forecasts.map((fc, idx) => (
           <div key={idx}>
             <div className="flex justify-between text-[11px] mb-1">
-              <span className="text-slate-400 font-semibold">{fc.label}</span>
-              <span className="font-mono text-white font-bold">{fc.val}%</span>
+              <span className="text-slate-500 font-bold">{fc.label}</span>
+              <span className="font-mono text-slate-900 font-bold">{fc.val}%</span>
             </div>
-            <div className="w-full h-1.5 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+            <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
               <div 
                 className={`h-full transition-all duration-700 ${fc.color}`} 
                 style={{ width: `${fc.val}%` }}
@@ -70,9 +70,9 @@ export default function AiForecast({ scenario }: AiForecastProps) {
         ))}
       </div>
 
-      <div className="mt-4 border-t border-slate-900 pt-3 text-[10px] text-slate-500 flex justify-between items-center font-mono">
+      <div className="mt-4 border-t border-slate-100 pt-3 text-[10px] text-slate-500 flex justify-between items-center font-mono">
         <span>Calculation confidence:</span>
-        <span className="text-emerald-400 font-bold">94.8% (YOLO + Weather ML)</span>
+        <span className="text-emerald-700 font-bold">94.8% (YOLO + Weather ML)</span>
       </div>
     </div>
   );

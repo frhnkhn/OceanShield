@@ -26,14 +26,14 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-[5000] w-full border-b border-cyan-500/20 bg-slate-950/80 backdrop-blur-md">
+    <nav className="sticky top-0 z-[5000] w-full border-b border-slate-200 bg-white text-slate-800">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <Link href="/" className="flex items-center gap-2 text-2xl font-bold tracking-wider text-cyan-400">
-          <span className="relative flex h-3 w-3">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-500"></span>
+        <Link href="/" className="flex items-center gap-2 text-xl font-bold tracking-wider text-slate-900">
+          <ShieldAlert className="h-5 w-5 text-red-650" />
+          OCEAN<span className="text-slate-550 font-normal">SHIELD</span>
+          <span className="ml-2 rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-bold text-slate-600 tracking-normal uppercase border border-slate-200">
+            Official
           </span>
-          OCEAN<span className="text-white">SHIELD</span>
         </Link>
 
         <div className="hidden md:flex gap-1 text-sm font-medium">
@@ -44,13 +44,13 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex items-center gap-2 rounded-lg px-4 py-2 transition-all duration-200 ${
+                className={`flex items-center gap-2 rounded px-3 py-1.5 transition-all duration-200 ${
                   isActive
-                    ? "bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.15)]"
-                    : "text-slate-400 hover:bg-slate-900 hover:text-white border border-transparent"
+                    ? "bg-slate-100 text-slate-900 font-bold border border-slate-200"
+                    : "text-slate-600 hover:bg-slate-50 hover:text-slate-900 border border-transparent"
                 }`}
               >
-                <Icon className="h-4 w-4" />
+                <Icon className="h-4 w-4 text-slate-500" />
                 {link.label}
               </Link>
             );
@@ -60,7 +60,7 @@ export default function Navbar() {
         <div className="flex items-center gap-3">
           <Link
             href="/report"
-            className="flex items-center gap-2 rounded-lg bg-red-500/20 border border-red-500/40 px-4 py-2 text-sm font-semibold text-red-400 transition-all duration-200 hover:bg-red-500 hover:text-white hover:shadow-[0_0_20px_rgba(239,68,68,0.4)]"
+            className="flex items-center gap-2 rounded bg-red-600 hover:bg-red-500 border border-red-700 px-4 py-2 text-sm font-bold text-white transition-all duration-200 shadow-sm"
           >
             <AlertTriangle className="h-4 w-4" />
             Report Hazard

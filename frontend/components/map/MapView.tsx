@@ -79,6 +79,7 @@ export default function MapView() {
   // Layers State
   const [showHeatmap, setShowHeatmap] = useState(false);
   const [showShelters, setShowShelters] = useState(true);
+  const [mapStyle, setMapStyle] = useState<"dark" | "google-road" | "google-satellite">("dark");
 
   // Routing State
   const [activeRoute, setActiveRoute] = useState<{
@@ -179,13 +180,13 @@ export default function MapView() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row h-[calc(100vh-73px)] w-full overflow-hidden bg-slate-950 text-white">
+    <div className="flex flex-col md:flex-row h-[calc(100vh-73px)] w-full overflow-hidden bg-slate-50 text-slate-850">
       
       {/* 1. Left Smart Filters Sidebar */}
-      <aside className="w-full md:w-80 border-r border-cyan-500/20 bg-slate-950/80 p-5 flex flex-col gap-4 overflow-y-auto shrink-0 z-[1010]">
-        <div className="flex items-center gap-2 border-b border-slate-900 pb-3">
-          <SlidersHorizontal className="h-5 w-5 text-cyan-400" />
-          <h2 className="font-extrabold text-sm uppercase tracking-widest text-cyan-300">Smart GIS Filters</h2>
+      <aside className="w-full md:w-80 border-r border-slate-200 bg-white p-5 flex flex-col gap-4 overflow-y-auto shrink-0 z-[1010]">
+        <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
+          <SlidersHorizontal className="h-4 w-4 text-slate-505" />
+          <h2 className="font-bold text-xs uppercase tracking-wider text-slate-700">Smart GIS Filters</h2>
         </div>
 
         {/* Search */}
@@ -195,9 +196,9 @@ export default function MapView() {
             placeholder="Search location or incident..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-2 pl-9 text-xs text-white placeholder-slate-500 focus:border-cyan-400 focus:outline-none"
+            className="w-full rounded border border-slate-200 bg-slate-50 px-3 py-2 pl-9 text-xs text-slate-900 placeholder-slate-400 focus:border-blue-900 focus:outline-none"
           />
-          <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-500" />
+          <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-slate-400" />
         </div>
 
         {/* Hazard Type Filter */}
@@ -206,7 +207,7 @@ export default function MapView() {
           <select
             value={filterHazard}
             onChange={(e) => setFilterHazard(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-slate-800 bg-slate-900 px-3 py-2 text-xs text-white focus:border-cyan-400 focus:outline-none"
+            className="mt-1 w-full rounded border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900 focus:border-blue-900 focus:outline-none"
           >
             <option value="all">All Hazards</option>
             <option value="flooding">Coastal Flooding</option>
@@ -223,7 +224,7 @@ export default function MapView() {
           <select
             value={filterSeverity}
             onChange={(e) => setFilterSeverity(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-slate-800 bg-slate-900 px-3 py-2 text-xs text-white focus:border-cyan-400 focus:outline-none"
+            className="mt-1 w-full rounded border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900 focus:border-blue-900 focus:outline-none"
           >
             <option value="all">All Severities</option>
             <option value="critical">Critical (Red)</option>
@@ -239,7 +240,7 @@ export default function MapView() {
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-slate-800 bg-slate-900 px-3 py-2 text-xs text-white focus:border-cyan-400 focus:outline-none"
+            className="mt-1 w-full rounded border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900 focus:border-blue-900 focus:outline-none"
           >
             <option value="all">All Reports</option>
             <option value="pending">Pending</option>
@@ -277,36 +278,52 @@ export default function MapView() {
           </div>
         </div>
 
+        {/* Base Map Select */}
+        <div className="border-t border-slate-100 pt-3">
+          <label className="text-[10px] uppercase font-bold text-slate-500 tracking-wider flex items-center gap-1.5 mb-2">
+            <Layers className="h-3.5 w-3.5 text-slate-550" /> Map Tile Source
+          </label>
+          <select
+            value={mapStyle}
+            onChange={(e) => setMapStyle(e.target.value as any)}
+            className="w-full rounded border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900 focus:border-blue-900 focus:outline-none"
+          >
+            <option value="dark">CartoDB Dark Theme (OSM)</option>
+            <option value="google-road">Google Maps (Roadmap)</option>
+            <option value="google-satellite">Google Maps (Satellite)</option>
+          </select>
+        </div>
+
         {/* Active Route Box */}
         {activeRoute && (
-          <div className="mt-auto border border-indigo-500/30 rounded-lg bg-indigo-950/20 p-3 text-xs text-indigo-300">
+          <div className="mt-auto border border-blue-200 rounded bg-blue-50/50 p-3 text-xs text-blue-950">
             <div className="flex justify-between items-center mb-1">
-              <span className="font-extrabold uppercase tracking-wider text-[10px] text-indigo-400 flex items-center gap-1">
-                <Route className="h-3.5 w-3.5 animate-pulse" /> Active Safety Route
+              <span className="font-extrabold uppercase tracking-wider text-[10px] text-blue-900 flex items-center gap-1">
+                <Route className="h-3.5 w-3.5" /> Active Safety Route
               </span>
               <button 
                 onClick={() => setActiveRoute(null)}
-                className="text-slate-500 hover:text-white"
+                className="text-slate-400 hover:text-slate-700"
               >
                 ✕
               </button>
             </div>
-            <p className="font-semibold text-white leading-tight">{activeRoute.shelter.name}</p>
+            <p className="font-semibold text-slate-900 leading-tight">{activeRoute.shelter.name}</p>
             <div className="mt-2 grid grid-cols-2 gap-2 text-xs">
               <div>
                 <span className="text-[10px] text-slate-500">Distance</span>
-                <p className="font-mono text-white">{activeRoute.distance}</p>
+                <p className="font-mono text-slate-900 font-bold">{activeRoute.distance}</p>
               </div>
               <div>
                 <span className="text-[10px] text-slate-500">Est. Time</span>
-                <p className="font-mono text-white flex items-center gap-1">
-                  <Clock className="h-3.5 w-3.5 text-cyan-400" />
+                <p className="font-mono text-slate-900 font-bold flex items-center gap-1">
+                  <Clock className="h-3.5 w-3.5 text-blue-600" />
                   {activeRoute.duration}
                 </p>
               </div>
             </div>
-            <div className="mt-2 border-t border-indigo-950/50 pt-2 text-[10px] text-slate-400 leading-snug">
-              <span className="text-emerald-400 font-bold">Route clear:</span> Coastal Highway safe. <span className="text-red-400 font-bold">Erosion Block:</span> Royapuram connector blocked.
+            <div className="mt-2 border-t border-slate-200 pt-2 text-[10px] text-slate-500 leading-snug">
+              <span className="text-emerald-600 font-bold">Route clear:</span> Coastal Highway safe. <span className="text-red-650 font-bold">Erosion Block:</span> Royapuram connector blocked.
             </div>
           </div>
         )}
@@ -321,10 +338,24 @@ export default function MapView() {
         >
           <MapController center={mapCenter} />
 
-          <TileLayer
-            attribution="© OpenStreetMap contributors"
-            url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" // Dark premium theme tiles
-          />
+          {mapStyle === "dark" && (
+            <TileLayer
+              attribution="© OpenStreetMap contributors"
+              url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+            />
+          )}
+          {mapStyle === "google-road" && (
+            <TileLayer
+              attribution="© Google Maps"
+              url="https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
+            />
+          )}
+          {mapStyle === "google-satellite" && (
+            <TileLayer
+              attribution="© Google Maps"
+              url="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
+            />
+          )}
 
           {/* User Location marker */}
           <Circle
@@ -366,6 +397,18 @@ export default function MapView() {
                     <span><b>Lat/Lng:</b> {report.latitude.toFixed(4)}, {report.longitude.toFixed(4)}</span>
                     <span><b>Date:</b> {new Date(report.created_at).toLocaleDateString()}</span>
                   </div>
+
+                  {report.weather_data && (
+                    <div className="mt-2 border-t pt-1.5 text-[10px] text-slate-600">
+                      <span className="font-bold text-cyan-700">🌡️ Weather at Incident:</span>
+                      <div className="grid grid-cols-2 gap-x-2 mt-0.5 text-slate-500">
+                        <span>Temp: {report.weather_data.temp}°C</span>
+                        <span>Wind: {report.weather_data.wind_speed} km/h ({report.weather_data.wind_dir})</span>
+                        <span>Rain: {report.weather_data.rainfall} mm</span>
+                        <span>Humidity: {report.weather_data.humidity}%</span>
+                      </div>
+                    </div>
+                  )}
 
                   {(report as any).ai_results?.verification_score !== undefined && (
                     <div className="mt-2 border-t pt-1.5 text-[10px] font-bold text-cyan-600">

@@ -43,13 +43,13 @@ export default function ProfilePage() {
   };
 
   const achievements = [
-    { title: "Coastal Guardian", desc: "First incident report submitted and verified.", icon: ShieldCheck, color: "text-cyan-400" },
-    { title: "Rescue Coordinator", desc: "Assisted in routing emergency staff to local shelters.", icon: Award, color: "text-yellow-400" },
-    { title: "Watch Commander", desc: "Logged over 5 reports verified by administration.", icon: Heart, color: "text-emerald-400" }
+    { title: "Coastal Guardian", desc: "First incident report submitted and verified.", icon: ShieldCheck, color: "text-blue-600" },
+    { title: "Rescue Coordinator", desc: "Assisted in routing emergency staff to local shelters.", icon: Award, color: "text-yellow-650" },
+    { title: "Watch Commander", desc: "Logged over 5 reports verified by administration.", icon: Heart, color: "text-emerald-650" }
   ];
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white flex flex-col font-sans">
+    <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans">
       <Navbar />
 
       <main className="flex-1 max-w-7xl w-full mx-auto p-6 flex flex-col gap-6">
@@ -60,22 +60,22 @@ export default function ProfilePage() {
           <div className="lg:col-span-1 flex flex-col gap-6">
             
             {/* Identity Card */}
-            <div className="rounded-xl border border-slate-900 bg-slate-950/40 p-6 backdrop-blur-md text-center flex flex-col items-center">
-              <div className="h-20 w-20 rounded-full bg-cyan-950 border-2 border-cyan-400 text-cyan-400 flex items-center justify-center mb-4">
-                <UserIcon className="h-10 w-10" />
+            <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm text-center flex flex-col items-center">
+              <div className="h-20 w-20 rounded-full bg-blue-50 border-2 border-blue-200 text-blue-900 flex items-center justify-center mb-4">
+                <UserIcon className="h-10 w-10 text-blue-900" />
               </div>
-              <h3 className="font-bold text-lg text-white">
+              <h3 className="font-bold text-lg text-slate-900">
                 {currentUser?.email?.split("@")[0].toUpperCase() || "AGENT_STAFF"}
               </h3>
               <p className="text-xs text-slate-500 font-mono mt-0.5">{currentUser?.email || "staff@oceanshield.gov"}</p>
               
-              <div className="mt-4 rounded-full bg-cyan-500/10 px-3 py-1 border border-cyan-500/30 text-[10px] font-bold text-cyan-400 uppercase tracking-widest">
+              <div className="mt-4 rounded-full bg-blue-50 px-3 py-1 border border-blue-150 text-[10px] font-bold text-blue-900 uppercase tracking-widest">
                 Level 3 Watch Officer
               </div>
 
               <button
                 onClick={handleLogout}
-                className="mt-6 w-full flex items-center justify-center gap-2 rounded-lg bg-red-950/40 hover:bg-red-500 border border-red-500/40 hover:border-red-500 py-2.5 text-xs font-bold text-red-400 hover:text-white transition-all duration-200"
+                className="mt-6 w-full flex items-center justify-center gap-2 rounded bg-slate-100 hover:bg-slate-200 border border-slate-300 py-2.5 text-xs font-bold text-slate-700 transition-all duration-200"
               >
                 <LogOut className="h-4 w-4" />
                 Sign Out
@@ -83,20 +83,20 @@ export default function ProfilePage() {
             </div>
 
             {/* Profile Settings */}
-            <div className="rounded-xl border border-slate-900 bg-slate-950/40 p-5 backdrop-blur-md flex flex-col gap-4">
-              <h3 className="font-bold text-sm tracking-wider uppercase text-slate-400 flex items-center gap-1.5 border-b border-slate-900 pb-3">
-                <Settings className="h-4 w-4 text-cyan-500" /> Console Settings
+            <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm flex flex-col gap-4">
+              <h3 className="font-bold text-xs tracking-wider uppercase text-slate-500 flex items-center gap-1.5 border-b border-slate-100 pb-3">
+                <Settings className="h-4 w-4 text-slate-500" /> Console Settings
               </h3>
 
               <div className="space-y-4 text-xs">
                 <div className="flex justify-between items-center">
                   <div>
-                    <p className="font-bold text-white">Tactical Dark Mode</p>
+                    <p className="font-bold text-slate-800">Tactical Dark Mode</p>
                     <p className="text-[10px] text-slate-500 mt-0.5">Optimized for nocturnal emergency centers.</p>
                   </div>
                   <button 
                     onClick={() => setDarkMode(prev => !prev)}
-                    className={`h-6 w-11 rounded-full p-1 transition-all ${darkMode ? "bg-cyan-600" : "bg-slate-800"}`}
+                    className={`h-6 w-11 rounded-full p-1 transition-all ${darkMode ? "bg-blue-900" : "bg-slate-350"}`}
                   >
                     <div className={`h-4 w-4 rounded-full bg-white transition-all ${darkMode ? "translate-x-5" : ""}`} />
                   </button>
@@ -104,12 +104,12 @@ export default function ProfilePage() {
 
                 <div className="flex justify-between items-center">
                   <div>
-                    <p className="font-bold text-white">Sensor Sound Alerts</p>
+                    <p className="font-bold text-slate-800">Sensor Sound Alerts</p>
                     <p className="text-[10px] text-slate-500 mt-0.5">Audible warning when critical hazards load.</p>
                   </div>
                   <button 
                     onClick={() => setNotifEnabled(prev => !prev)}
-                    className={`h-6 w-11 rounded-full p-1 transition-all ${notifEnabled ? "bg-cyan-600" : "bg-slate-800"}`}
+                    className={`h-6 w-11 rounded-full p-1 transition-all ${notifEnabled ? "bg-blue-900" : "bg-slate-350"}`}
                   >
                     <div className={`h-4 w-4 rounded-full bg-white transition-all ${notifEnabled ? "translate-x-5" : ""}`} />
                   </button>
@@ -123,18 +123,18 @@ export default function ProfilePage() {
           <div className="lg:col-span-2 flex flex-col gap-6">
             
             {/* Achievements */}
-            <div className="rounded-xl border border-slate-900 bg-slate-950/40 p-6 backdrop-blur-md flex flex-col gap-4">
-              <h3 className="font-bold text-sm tracking-wider uppercase text-slate-400 flex items-center gap-1.5">
-                <Award className="h-4 w-4 text-yellow-400" /> Watch Accomplishments & Badges
+            <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm flex flex-col gap-4">
+              <h3 className="font-bold text-xs tracking-wider uppercase text-slate-500 flex items-center gap-1.5">
+                <Award className="h-4 w-4 text-yellow-650" /> Watch Accomplishments & Badges
               </h3>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {achievements.map((ach, idx) => {
                   const Icon = ach.icon;
                   return (
-                    <div key={idx} className="rounded-lg border border-slate-900 bg-slate-950 p-4 flex flex-col items-center text-center">
+                    <div key={idx} className="rounded border border-slate-200 bg-slate-50 p-4 flex flex-col items-center text-center">
                       <Icon className={`h-8 w-8 mb-2 ${ach.color}`} />
-                      <h4 className="font-bold text-xs text-white leading-tight">{ach.title}</h4>
+                      <h4 className="font-bold text-xs text-slate-900 leading-tight">{ach.title}</h4>
                       <p className="text-[10px] text-slate-500 mt-1 leading-relaxed">{ach.desc}</p>
                     </div>
                   );
@@ -143,9 +143,9 @@ export default function ProfilePage() {
             </div>
 
             {/* Emergency Hotline Module */}
-            <div className="rounded-xl border border-slate-900 bg-slate-950/40 p-6 backdrop-blur-md flex flex-col gap-4">
-              <h3 className="font-bold text-sm tracking-wider uppercase text-slate-400 flex items-center gap-1.5">
-                <Phone className="h-4 w-4 text-cyan-400" /> One-Click Emergency Hotlines
+            <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm flex flex-col gap-4">
+              <h3 className="font-bold text-xs tracking-wider uppercase text-slate-500 flex items-center gap-1.5">
+                <Phone className="h-4 w-4 text-slate-500" /> One-Click Emergency Hotlines
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -153,13 +153,13 @@ export default function ProfilePage() {
                   <a
                     key={index}
                     href={`tel:${contact.phone}`}
-                    className="flex justify-between items-center p-3 rounded-lg border border-slate-900 bg-slate-950 hover:border-cyan-500/30 transition-all group"
+                    className="flex justify-between items-center p-3 rounded border border-slate-200 bg-slate-50 hover:bg-slate-100 transition-all group"
                   >
                     <div>
-                      <p className="font-bold text-xs text-white leading-tight">{contact.name}</p>
+                      <p className="font-bold text-xs text-slate-900 leading-tight">{contact.name}</p>
                       <p className="text-[10px] text-slate-500 mt-0.5">{contact.subtitle}</p>
                     </div>
-                    <span className="rounded bg-cyan-500/10 group-hover:bg-cyan-500 border border-cyan-500/30 px-2.5 py-1 text-xs font-mono font-bold text-cyan-400 group-hover:text-black transition-all">
+                    <span className="rounded bg-blue-50 border border-blue-200 px-2.5 py-1 text-xs font-mono font-bold text-blue-900 group-hover:bg-blue-900 group-hover:text-white transition-all">
                       {contact.phone}
                     </span>
                   </a>

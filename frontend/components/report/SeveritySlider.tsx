@@ -10,7 +10,7 @@ export default function SeveritySlider({
   return (
     <div>
 
-      <p className="text-white mb-2">
+      <p className="text-slate-800 mb-2 font-bold text-xs uppercase tracking-wider">
 
         Severity: {value}
 

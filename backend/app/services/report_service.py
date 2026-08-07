@@ -2,9 +2,12 @@ from sqlalchemy.orm import Session
 
 from app.models.report import Report
 from app.schemas.report import ReportCreate
+from app.services.weather_service import fetch_weather
 
 
 def create_report(db: Session, report: ReportCreate):
+    # Fetch weather data snapshot
+    weather_info = fetch_weather(report.latitude, report.longitude)
 
     new_report = Report(
         title=report.title,
@@ -16,6 +19,7 @@ def create_report(db: Session, report: ReportCreate):
         image_url=report.image_url,
         ai_status="queued" if report.image_url else "not_requested",
         gemini_status="queued" if report.image_url else "not_requested",
+        weather_data=weather_info,
     )
 
     db.add(new_report)

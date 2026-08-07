@@ -127,8 +127,8 @@ export default function ReportDetailsPage({ params }: PageProps) {
       <main className="flex-1 max-w-7xl w-full mx-auto p-6 flex flex-col gap-6">
         
         {/* Banner navigation path */}
-        <div className="text-xs text-slate-500 flex items-center gap-1.5 font-mono">
-          <span>OceanShield AI</span>
+        <div className="text-xs text-slate-500 flex items-center gap-1.5 font-sans">
+          <span>OceanShield</span>
           <ChevronRight className="h-3.5 w-3.5" />
           <span>Incident Index</span>
           <ChevronRight className="h-3.5 w-3.5" />

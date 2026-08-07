@@ -16,39 +16,39 @@ export default function OperationalIntelligence() {
   ];
 
   return (
-    <div className="relative overflow-hidden rounded-xl border border-cyan-500/20 bg-slate-950/40 p-5 backdrop-blur-md flex flex-col gap-4">
+    <div className="relative overflow-hidden rounded-lg border border-slate-200 bg-white p-5 shadow-sm flex flex-col gap-4">
       
       {/* Social Media Scraper */}
       <div>
-        <h4 className="font-bold text-cyan-400 text-xs uppercase tracking-wider flex items-center gap-1.5 border-b border-slate-900 pb-2 mb-2">
-          <MessageCircle className="h-4 w-4" /> Live Social Scraper
+        <h4 className="font-bold text-slate-800 text-xs uppercase tracking-wider flex items-center gap-1.5 border-b border-slate-100 pb-2 mb-2">
+          <MessageCircle className="h-4 w-4 text-slate-500" /> Live Social Scraper
         </h4>
         <div className="space-y-2.5">
           {feeds.map((f, idx) => (
-            <div key={idx} className="rounded bg-slate-900/60 p-2 border border-slate-800 text-[10px]">
+            <div key={idx} className="rounded bg-slate-50 p-2 border border-slate-200 text-[10px]">
               <div className="flex justify-between text-slate-500 font-bold mb-0.5">
                 <span>{f.source}</span>
-                <span className="text-cyan-400 font-mono">{f.score}</span>
+                <span className="text-blue-900 font-mono">{f.score}</span>
               </div>
-              <p className="text-white leading-normal">{f.post}</p>
+              <p className="text-slate-800 leading-normal">{f.post}</p>
             </div>
           ))}
         </div>
       </div>
 
       {/* Resource Allocation Tracker */}
-      <div className="border-t border-slate-900 pt-3">
-        <h4 className="font-bold text-cyan-400 text-xs uppercase tracking-wider flex items-center gap-1.5 border-b border-slate-900 pb-2 mb-2">
-          <Anchor className="h-4 w-4" /> Resource Fleet Allocation
+      <div className="border-t border-slate-100 pt-3">
+        <h4 className="font-bold text-slate-800 text-xs uppercase tracking-wider flex items-center gap-1.5 border-b border-slate-100 pb-2 mb-2">
+          <Anchor className="h-4 w-4 text-slate-500" /> Resource Fleet Allocation
         </h4>
         <div className="grid grid-cols-2 gap-2 text-[10px]">
           {resources.map((r, idx) => (
-            <div key={idx} className="p-2 rounded bg-slate-900/40 border border-slate-900 flex justify-between items-center">
+            <div key={idx} className="p-2 rounded bg-slate-50 border border-slate-200 flex justify-between items-center">
               <div>
-                <p className="font-bold text-white leading-tight">{r.item}</p>
+                <p className="font-bold text-slate-805 leading-tight">{r.item}</p>
                 <p className="text-slate-500 mt-0.5">{r.status}</p>
               </div>
-              <span className="bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 font-mono font-bold px-2 py-0.5 rounded">
+              <span className="bg-blue-50 border border-blue-200 text-blue-900 font-mono font-bold px-2 py-0.5 rounded">
                 x{r.qty}
               </span>
             </div>
@@ -57,13 +57,13 @@ export default function OperationalIntelligence() {
       </div>
 
       {/* Volunteer registries */}
-      <div className="border-t border-slate-900 pt-3">
-        <h4 className="font-bold text-cyan-400 text-xs uppercase tracking-wider flex items-center gap-1.5 border-b border-slate-900 pb-2 mb-2">
-          <Users className="h-4 w-4" /> Volunteer Roster
+      <div className="border-t border-slate-100 pt-3">
+        <h4 className="font-bold text-slate-800 text-xs uppercase tracking-wider flex items-center gap-1.5 border-b border-slate-100 pb-2 mb-2">
+          <Users className="h-4 w-4 text-slate-500" /> Volunteer Roster
         </h4>
-        <div className="flex justify-between items-center text-[10px] text-slate-400">
-          <span>Active Volunteers Registered: <strong className="text-white font-mono">182 officers</strong></span>
-          <span className="bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded text-emerald-400 font-bold uppercase tracking-wider text-[8px]">
+        <div className="flex justify-between items-center text-[10px] text-slate-500">
+          <span>Active Volunteers Registered: <strong className="text-slate-900 font-mono">182 officers</strong></span>
+          <span className="bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded text-emerald-700 font-bold uppercase tracking-wider text-[8px]">
             Certificates Ready
           </span>
         </div>

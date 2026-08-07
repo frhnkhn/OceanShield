@@ -42,3 +42,4 @@ class ReportResponse(ReportCreate):
     gemini_model: str | None = None
     gemini_processed_at: datetime | None = None
     gemini_error: str | None = None
+    weather_data: dict | None = None

@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "OceanShield AI",
-  description: "Coastal disaster intelligence platform",
+  title: "OceanShield",
+  description: "Coastal disaster management platform",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

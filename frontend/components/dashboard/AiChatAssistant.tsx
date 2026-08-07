@@ -33,12 +33,12 @@ export default function AiChatAssistant() {
   };
 
   return (
-    <div className="relative overflow-hidden rounded-xl border border-cyan-500/20 bg-slate-950/40 p-5 backdrop-blur-md h-[340px] flex flex-col justify-between">
-      <div className="flex items-center justify-between border-b border-slate-900 pb-3 mb-2">
-        <h3 className="font-bold text-cyan-400 tracking-wider flex items-center gap-2 text-sm uppercase">
-          <Bot className="h-4 w-4" /> AI Emergency Assistant
+    <div className="relative overflow-hidden rounded-lg border border-slate-200 bg-white p-5 shadow-sm h-[340px] flex flex-col justify-between">
+      <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-2">
+        <h3 className="font-bold text-slate-800 tracking-wider flex items-center gap-2 text-xs uppercase">
+          <Bot className="h-4 w-4 text-slate-500" /> AI Emergency Assistant
         </h3>
-        <span className="bg-cyan-500/15 border border-cyan-500/30 px-2 py-0.5 rounded text-[10px] font-bold text-cyan-400">
+        <span className="bg-slate-50 border border-slate-200 px-2 py-0.5 rounded text-[10px] font-bold text-slate-550">
           ONLINE ASSIST
         </span>
       </div>
@@ -47,12 +47,12 @@ export default function AiChatAssistant() {
         {messages.map((msg, idx) => (
           <div key={idx} className={`flex gap-2 items-start ${msg.sender === "user" ? "flex-row-reverse" : ""}`}>
             <div className={`h-6 w-6 rounded-full shrink-0 flex items-center justify-center font-bold text-[10px] ${
-              msg.sender === "bot" ? "bg-cyan-950 text-cyan-400 border border-cyan-800" : "bg-slate-900 text-white border border-slate-700"
+              msg.sender === "bot" ? "bg-blue-50 text-blue-900 border border-blue-150" : "bg-slate-100 text-slate-700 border border-slate-200"
             }`}>
               {msg.sender === "bot" ? "AI" : "U"}
             </div>
-            <div className={`p-2.5 rounded-lg leading-normal ${
-              msg.sender === "bot" ? "bg-slate-900/60 text-slate-200" : "bg-cyan-600 text-white"
+            <div className={`p-2.5 rounded border leading-normal ${
+              msg.sender === "bot" ? "bg-slate-50 text-slate-800 border-slate-200" : "bg-blue-900 text-white"
             }`}>
               {msg.text}
             </div>
@@ -66,11 +66,11 @@ export default function AiChatAssistant() {
           placeholder="Ask a question..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="flex-1 rounded-lg border border-slate-800 bg-slate-900 px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
+          className="flex-1 rounded border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-900"
         />
         <button
           type="submit"
-          className="rounded-lg bg-cyan-600 border border-cyan-500 px-3 py-2 text-xs font-bold text-white transition-all hover:bg-cyan-500"
+          className="rounded bg-blue-900 border border-blue-900 px-3 py-2 text-xs font-bold text-white transition-all hover:bg-blue-800"
         >
           <Send className="h-4 w-4" />
         </button>

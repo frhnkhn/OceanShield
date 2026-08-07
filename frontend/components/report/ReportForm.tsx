@@ -143,13 +143,13 @@ export default function ReportForm() {
  
 
   return (
-    <div className="max-w-3xl mx-auto rounded-2xl bg-slate-900 p-8 shadow-xl space-y-6">
+    <div className="max-w-3xl mx-auto rounded-lg bg-white border border-slate-200 p-8 shadow-sm space-y-6">
 
-      <h1 className="text-3xl font-bold text-cyan-400">
+      <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">
         🌊 Report Coastal Hazard
       </h1>
 
-      <p className="text-slate-300">Share what you see so local responders can act faster.</p>
+      <p className="text-slate-550 text-sm">Share what you see so local responders can act faster.</p>
 
       {/* Title */}
 
@@ -158,7 +158,7 @@ export default function ReportForm() {
         placeholder="Report Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        className="w-full rounded-lg bg-slate-800 p-3 text-white border border-slate-700"
+        className="w-full rounded border border-slate-200 bg-slate-50 p-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-900 focus:outline-none"
       />
 
       {/* Description */}
@@ -168,7 +168,7 @@ export default function ReportForm() {
         placeholder="Describe the incident..."
         value={description}
         onChange={(e) => setDescription(e.target.value)}
-        className="w-full rounded-lg bg-slate-800 p-3 text-white border border-slate-700"
+        className="w-full rounded border border-slate-200 bg-slate-50 p-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-900 focus:outline-none"
       />
 
       {/* Image Upload */}
@@ -180,7 +180,7 @@ export default function ReportForm() {
       />
 
       {!isFirebaseStorageConfigured && (
-        <p className="rounded-lg border border-amber-800 bg-amber-950/40 p-3 text-sm text-amber-200">
+        <p className="rounded border border-amber-200 bg-amber-50 p-3 text-xs text-amber-705 leading-normal">
           Image uploads are not configured yet. Reports can still be submitted without an image.
         </p>
       )}
@@ -207,34 +207,34 @@ export default function ReportForm() {
 
       {/* Submit */}
 
-      {errorMessage && <p role="alert" className="rounded-lg bg-red-950 p-3 text-sm text-red-200">{errorMessage}</p>}
-      {successMessage && <p role="status" className="rounded-lg bg-emerald-950 p-3 text-sm text-emerald-200">{successMessage}</p>}
+      {errorMessage && <p role="alert" className="rounded border border-red-200 bg-red-50 p-3 text-xs text-red-700 leading-normal">{errorMessage}</p>}
+      {successMessage && <p role="status" className="rounded border border-emerald-200 bg-emerald-50 p-3 text-xs text-emerald-700 leading-normal">{successMessage}</p>}
       {analysisReport && (
-        <section className="rounded-lg border border-cyan-900 bg-slate-950 p-4 text-sm text-slate-200" aria-live="polite">
-          <p className="font-bold text-cyan-300">AI object detection: {analysisReport.ai_status}</p>
+        <section className="rounded border border-slate-200 bg-slate-50 p-4 text-xs text-slate-700 space-y-2" aria-live="polite">
+          <p className="font-bold text-slate-900">AI object detection: {analysisReport.ai_status}</p>
           {analysisReport.ai_status === "queued" || analysisReport.ai_status === "processing" ? (
-            <p className="mt-1 text-slate-300">Your evidence image is being analysed locally.</p>
+            <p className="text-slate-500">Your evidence image is being analysed locally.</p>
           ) : null}
           {analysisReport.ai_status === "completed" && (
-            <p className="mt-1">{analysisReport.ai_results?.detections.length ?? 0} object{(analysisReport.ai_results?.detections.length ?? 0) === 1 ? "" : "s"} detected by {analysisReport.ai_model}.</p>
+            <p className="text-slate-600">{analysisReport.ai_results?.detections.length ?? 0} object{(analysisReport.ai_results?.detections.length ?? 0) === 1 ? "" : "s"} detected by {analysisReport.ai_model}.</p>
           )}
           {analysisReport.ai_status === "failed" && (
-            <p className="mt-1 text-red-300">Analysis could not complete. The report was still saved.</p>
+            <p className="text-red-650 font-semibold">Analysis could not complete. The report was still saved.</p>
           )}
           {analysisReport.gemini_status === "queued" || analysisReport.gemini_status === "processing" ? (
-            <p className="mt-3 text-slate-300">Gemini is preparing an incident assessment.</p>
+            <p className="text-slate-500">Gemini is preparing an incident assessment.</p>
           ) : null}
           {analysisReport.gemini_status === "completed" && analysisReport.gemini_summary && (
-            <div className="mt-3 border-t border-slate-800 pt-3">
-              <p className="font-bold text-violet-300">Gemini incident assessment</p>
-              <p className="mt-1 text-slate-300">{analysisReport.gemini_summary}</p>
+            <div className="border-t border-slate-200 pt-3 mt-2">
+              <p className="font-bold text-blue-900">Gemini incident assessment</p>
+              <p className="mt-1 text-slate-655 leading-relaxed">{analysisReport.gemini_summary}</p>
             </div>
           )}
           {analysisReport.gemini_status === "not_configured" && (
-            <p className="mt-3 text-amber-200">Gemini is ready to use once its backend API key is configured.</p>
+            <p className="text-amber-705">Gemini is ready to use once its backend API key is configured.</p>
           )}
           {analysisReport.gemini_status === "failed" && (
-            <p className="mt-3 text-red-300">The Gemini assessment could not be generated. The report and YOLO results remain available.</p>
+            <p className="text-red-650 font-semibold">The Gemini assessment could not be generated. The report and YOLO results remain available.</p>
           )}
         </section>
       )}
@@ -242,7 +242,7 @@ export default function ReportForm() {
       <button
         onClick={handleSubmit}
         disabled={isSubmitting}
-        className="w-full rounded-lg bg-cyan-500 py-3 font-bold text-black hover:bg-cyan-400 transition disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full rounded bg-blue-900 py-3 font-bold text-white hover:bg-blue-800 transition disabled:cursor-not-allowed disabled:opacity-60 text-sm"
       >
         {isSubmitting ? "Submitting report…" : "Submit Report"}
       </button>

@@ -27,35 +27,35 @@ export default function DamageAssessment({ scenario }: DamageAssessmentProps) {
   const m = getMetrics();
 
   return (
-    <div className="relative overflow-hidden rounded-xl border border-cyan-500/20 bg-slate-950/40 p-5 backdrop-blur-md">
-      <h3 className="font-bold text-cyan-400 tracking-wider flex items-center gap-2 text-sm uppercase border-b border-slate-800 pb-3">
-        <ShieldAlert className="h-4 w-4" /> AI Damage & Rescue Priority
+    <div className="relative overflow-hidden rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+      <h3 className="font-bold text-slate-800 tracking-wider flex items-center gap-2 text-xs uppercase border-b border-slate-100 pb-3">
+        <ShieldAlert className="h-4 w-4 text-slate-500" /> AI Damage & Rescue Priority
       </h3>
 
       <div className="mt-4 space-y-3 text-xs">
-        <div className="flex justify-between items-center py-1.5 border-b border-slate-900">
+        <div className="flex justify-between items-center py-1.5 border-b border-slate-100">
           <span className="text-slate-500">Priority Score (1-10)</span>
-          <span className="font-bold font-mono text-red-400">{m.priority} / 10</span>
+          <span className="font-extrabold font-mono text-red-650">{m.priority} / 10</span>
         </div>
 
-        <div className="flex justify-between items-center py-1.5 border-b border-slate-900">
+        <div className="flex justify-between items-center py-1.5 border-b border-slate-100">
           <span className="text-slate-500">Infrastructure Impact</span>
-          <span className="font-semibold text-white">{m.infra}</span>
+          <span className="font-semibold text-slate-900">{m.infra}</span>
         </div>
 
-        <div className="flex justify-between items-center py-1.5 border-b border-slate-900">
+        <div className="flex justify-between items-center py-1.5 border-b border-slate-100">
           <span className="text-slate-500">Roadway Status</span>
-          <span className="font-semibold text-white">{m.road}</span>
+          <span className="font-semibold text-slate-900">{m.road}</span>
         </div>
 
-        <div className="flex justify-between items-center py-1.5 border-b border-slate-900">
+        <div className="flex justify-between items-center py-1.5 border-b border-slate-100">
           <span className="text-slate-500">Projected Losses</span>
-          <span className="font-bold font-mono text-cyan-400">{m.economic}</span>
+          <span className="font-bold font-mono text-blue-900">{m.economic}</span>
         </div>
 
-        <div className="flex justify-between items-center py-1.5 border-b border-slate-900">
+        <div className="flex justify-between items-center py-1.5 border-b border-slate-100">
           <span className="text-slate-500">Recommended Allocation</span>
-          <span className="font-semibold text-indigo-400">{m.team}</span>
+          <span className="font-semibold text-indigo-905">{m.team}</span>
         </div>
       </div>
     </div>

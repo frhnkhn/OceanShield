@@ -19,6 +19,17 @@ export interface Report {
   gemini_model?: string | null;
   gemini_processed_at?: string | null;
   gemini_error?: string | null;
+  weather_data?: {
+    temp: number;
+    wind_speed: number;
+    wind_dir: string;
+    humidity: number;
+    rainfall: number;
+    tide_level: string;
+    cyclone_warning: boolean;
+    cyclone_category?: string | null;
+    fetched_at?: string | null;
+  } | null;
 }
 
 export type ReportDraft = Pick<Report, "title" | "description" | "hazard" | "severity" | "latitude" | "longitude" | "image_url">;

@@ -21,7 +21,7 @@ export default function HazardSelector({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full rounded-lg bg-slate-800 p-3 text-white"
+      className="w-full rounded border border-slate-200 bg-slate-50 p-3 text-sm text-slate-900 focus:border-blue-900 focus:outline-none"
     >
       {hazards.map((hazard) => (
         <option key={hazard}>
