@@ -33,3 +33,12 @@ build/
 
 # Coverage
 coverage/
+.env
+.env.*
+!.env.local.example
+__pycache__/
+*.py[cod]
+.venv/
+frontend/.next/
+frontend/node_modules/
+backend/app/static/analysis/
