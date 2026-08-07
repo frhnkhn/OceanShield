@@ -1,43 +1,471 @@
-# OceanShield AI
+# 🌊 OceanShield
+### AI-Powered Coastal Disaster Intelligence & Emergency Response Platform
 
-OceanShield is a coastal-disaster intelligence platform. Citizens can submit geo-tagged incident reports, attach evidence photos, and view incidents on a live map.
+<p align="center">
 
-## Run locally
+![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=nextdotjs)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.116-009688?style=for-the-badge&logo=fastapi)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-blue?style=for-the-badge&logo=postgresql)
+![Firebase](https://img.shields.io/badge/Firebase-Authentication-orange?style=for-the-badge&logo=firebase)
+![YOLO](https://img.shields.io/badge/YOLO-AI-red?style=for-the-badge)
+![Gemini](https://img.shields.io/badge/Gemini-AI-purple?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-1. Copy `backend/.env.example` to `backend/.env`, then set `DATABASE_URL`.
-2. Install backend packages with `pip install -r requirements.txt` from `backend/`. For an existing database, run `python migrate_phase6_ai.py`; for a new one, run `python create_tables.py`. Start the API with `uvicorn app.main:app --reload`.
-3. Copy `frontend/.env.local.example` to `frontend/.env.local`. Firebase values are optional unless you want photo uploads or authentication.
-4. Run `npm install` and `npm run dev` from `frontend/`.
+</p>
 
-The frontend runs at `http://localhost:3000`; FastAPI documentation is at `http://127.0.0.1:8000/docs`.
+---
 
-## Firebase Storage setup
+## 🌍 About
 
-Enable Storage in your Firebase project, add its web configuration values to `frontend/.env.local`, and add an authenticated Storage rule before allowing public uploads. The app gracefully supports reports without photos until that configuration is complete.
+OceanShield is an AI-powered disaster management platform developed for **Smart India Hackathon 2026 (SIH25039)**.
 
-## Phase 6 — Local YOLO analysis
+The platform enables citizens to instantly report coastal hazards while allowing government authorities to monitor, verify, analyze, and respond using Artificial Intelligence, GIS Mapping, Social Media Intelligence, and Weather Intelligence.
 
-Reports with an evidence image are saved first and analysed in the background. The app writes an annotated evidence image to `backend/app/static/analysis/` and displays general object detections in the map popup. On first image analysis, Ultralytics downloads the model configured by `YOLO_MODEL_PATH` (default: `yolo11n.pt`).
+OceanShield aims to reduce disaster response time and improve coordination between citizens and emergency agencies.
 
-This pretrained model is an object-detection baseline, not a trained coastal-hazard classifier. Replace `YOLO_MODEL_PATH` with your labelled coastal-hazard weights once training is complete; no API or frontend changes are required.
+---
 
-## Phase 7 — Gemini incident reasoning
+# ✨ Features
 
-After YOLO completes, OceanShield can send the report details and object detections to Gemini and store a concise, uncertainty-aware incident assessment. Add `GEMINI_API_KEY` to `backend/.env` only; never expose it through `NEXT_PUBLIC_*` frontend variables. The integration uses Gemini's `generateContent` API with the configured `GEMINI_MODEL`. Without a key, reports remain fully available and show that reasoning is awaiting configuration. [Gemini API reference](https://ai.google.dev/api)
+### 👤 Citizen Portal
 
-## Unified EOC Dashboard & GIS Command Map
-OceanShield features a state-of-the-art collapsible left-navigation EOC Sidebar next to its mapping views, offering:
-- **EOC Command Center**: Telemetry counters, wind/rain weather metrics, dynamic AI risk indexes, and flight controllers.
-- **Social Intelligence Deck**: Normalizes public alerts from platforms (X, Reddit, Telegram), hashtags, and extracted geographic coordinates.
-- **Simulation Room**: Interactive canvas-based Digital Twin rendering evacuee particle flows, flood expansions, and incident playback speed scrubbers.
+- Secure Authentication
+- Report Coastal Hazard
+- GPS Detection
+- Image Upload
+- Hazard Classification
+- Severity Selection
+- Live Incident Tracking
+- Report Status
 
-## Multi-Source Verification & Data Fusion
-- **Verification Engine**: Combines citizen reports, GPS coordinates, weather forecasts, YOLO analysis, and social reports into an aggregated credibility score (0-100%) and categorizes warnings (HIGH CONFIDENCE, PARTIALLY VERIFIED, UNVERIFIED).
-- **Early Warning System**: Scans reports density and precipitation to flag potential disasters.
+---
 
-## Docker Orchestration
-Launch the complete stack (PostgreSQL, FastAPI, Next.js frontend) with a single command:
-```bash
-docker-compose up --build
+### 🤖 AI Intelligence
+
+- YOLO Object Detection
+- Gemini AI Verification
+- Duplicate Report Detection
+- Confidence Score
+- Risk Assessment
+
+---
+
+### 🗺️ GIS Dashboard
+
+- Live Incident Map
+- Hazard Markers
+- Heatmaps
+- Safe Zone Visualization
+- Emergency Route Planning
+
+---
+
+### 📡 Disaster Intelligence
+
+- Weather Monitoring
+- IMD Alerts
+- News Intelligence
+- Social Media Monitoring
+- Risk Prediction
+
+---
+
+### 🚨 Emergency Response
+
+- Emergency Dashboard
+- Collector Dashboard
+- Volunteer Dashboard
+- Incident Timeline
+- Safe Route Recommendation
+- Shelter Locations
+
+---
+
+### 📊 Analytics Dashboard
+
+- Live Statistics
+- Hazard Trends
+- AI Analytics
+- Response Time
+- Monthly Reports
+
+---
+
+# 🏗 Tech Stack
+
+## Frontend
+
+- Next.js 16
+- React
+- TypeScript
+- Tailwind CSS
+- Leaflet
+
+## Backend
+
+- FastAPI
+- SQLAlchemy
+- PostgreSQL
+- Pydantic
+
+## Authentication
+
+- Firebase Authentication
+
+## Storage
+
+- Firebase Storage
+
+## AI
+
+- YOLO
+- Google Gemini
+
+## Maps
+
+- OpenStreetMap
+- Leaflet
+
+---
+
+# 📂 Project Structure
+
+```text
+OceanShield/
+
+├── frontend/
+│   ├── app/
+│   ├── components/
+│   ├── services/
+│   ├── lib/
+│   └── public/
+│
+├── backend/
+│   ├── app/
+│   │   ├── api/
+│   │   ├── routers/
+│   │   ├── database/
+│   │   ├── models/
+│   │   ├── schemas/
+│   │   ├── services/
+│   │   ├── core/
+│   │   └── main.py
+│   │
+│   └── requirements.txt
+│
+├── docs/
+│
+└── README.md
 ```
-The gateway router handles reverse proxying on port 80 dynamically.
+
+---
+
+# 🏛 System Architecture
+
+```text
+Citizen
+
+      │
+      ▼
+
+Report Hazard
+
+      │
+      ▼
+
+GPS + Images + Metadata
+
+      │
+      ▼
+
+FastAPI Backend
+
+      │
+      ▼
+
+PostgreSQL Database
+
+      │
+      ▼
+
+AI Processing
+
+├── YOLO Detection
+├── Gemini Verification
+├── Weather Analysis
+└── Social Media Analysis
+
+      │
+      ▼
+
+Incident Verification
+
+      │
+      ▼
+
+GIS Dashboard
+
+      │
+      ▼
+
+Authorities
+
+      │
+      ▼
+
+Emergency Response
+```
+
+---
+
+# 🚀 Installation
+
+## Clone Repository
+
+```bash
+git clone https://github.com/yourusername/OceanShield.git
+
+cd OceanShield
+```
+
+---
+
+## Backend
+
+```bash
+cd backend
+
+python -m venv .venv
+
+source .venv/bin/activate
+
+pip install -r requirements.txt
+
+uvicorn app.main:app --reload
+```
+
+Backend runs on
+
+```
+http://127.0.0.1:8000
+```
+
+Swagger Docs
+
+```
+http://127.0.0.1:8000/docs
+```
+
+---
+
+## Frontend
+
+```bash
+cd frontend
+
+npm install
+
+npm run dev
+```
+
+Runs on
+
+```
+http://localhost:3000
+```
+
+---
+
+# 🗄 Database
+
+Create PostgreSQL Database
+
+```sql
+CREATE DATABASE oceanshield;
+```
+
+Run Migrations
+
+```bash
+alembic upgrade head
+```
+
+---
+
+# 🔥 Firebase
+
+Create a Firebase Project
+
+Enable
+
+- Authentication
+- Storage
+
+Create
+
+```
+firebase.ts
+```
+
+Configure
+
+```ts
+export const auth
+
+export const storage
+```
+
+---
+
+# 📷 Screenshots
+
+## Login
+
+(Add Screenshot)
+
+---
+
+## Register
+
+(Add Screenshot)
+
+---
+
+## Report Hazard
+
+(Add Screenshot)
+
+---
+
+## GIS Dashboard
+
+(Add Screenshot)
+
+---
+
+## Analytics Dashboard
+
+(Add Screenshot)
+
+---
+
+# 📅 Development Roadmap
+
+| Phase | Status |
+|---------|---------|
+| Project Planning | ✅ |
+| Architecture | ✅ |
+| Frontend Setup | ✅ |
+| Backend Setup | ✅ |
+| Authentication | ✅ |
+| PostgreSQL Integration | ✅ |
+| Report APIs | ✅ |
+| GIS Dashboard | ✅ |
+| Analytics Dashboard | ✅ |
+| AI Integration | ✅ |
+| Social Media Intelligence | ✅ |
+| Weather Intelligence | ✅ |
+| Emergency Dashboard | ✅ |
+| Safe Route Engine | ✅ |
+| Firebase Storage | 🚧 |
+| Testing | 🚧 |
+| Deployment | 🚧 |
+| Documentation | 🚧 |
+
+---
+
+# 🎯 Future Scope
+
+- Drone Integration
+- Satellite Imagery
+- IoT Buoys
+- SMS Alerts
+- Mesh Network Communication
+- Offline Reporting
+- Multi-language Support
+- Android Application
+- iOS Application
+- AI Disaster Prediction
+
+---
+
+# 📈 Current Progress
+
+```
+████████████████████░░░░ 85%
+```
+
+Completed
+
+- Authentication
+- Database
+- GIS
+- Analytics
+- AI
+- Weather
+- Social Intelligence
+- Emergency Dashboard
+
+Remaining
+
+- Firebase Storage
+- Testing
+- Deployment
+- Documentation
+
+---
+
+# 🤝 Contributors
+
+Developed for
+
+**Smart India Hackathon 2026**
+
+Team Members
+
+- Your Name
+- Member 2
+- Member 3
+- Member 4
+
+---
+
+# 🏆 Smart India Hackathon
+
+Problem Statement
+
+**SIH25039**
+
+Theme
+
+**Disaster Management**
+
+---
+
+# 📜 License
+
+This project is licensed under the MIT License.
+
+---
+
+# ⭐ Support
+
+If you like this project,
+
+⭐ Star the repository
+
+🍴 Fork the repository
+
+🤝 Contribute
+
+---
+
+<p align="center">
+
+### 🌊 OceanShield
+
+**AI for Safer Coasts • Smarter Response • Stronger Communities**
+
+Made with ❤️ for Smart India Hackathon 2026
+
+</p>
