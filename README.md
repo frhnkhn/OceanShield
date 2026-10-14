@@ -314,39 +314,6 @@ export const auth
 
 export const storage
 ```
-
----
-
-# 📷 Screenshots
-
-## Login
-
-(Add Screenshot)
-
----
-
-## Register
-
-(Add Screenshot)
-
----
-
-## Report Hazard
-
-(Add Screenshot)
-
----
-
-## GIS Dashboard
-
-(Add Screenshot)
-
----
-
-## Analytics Dashboard
-
-(Add Screenshot)
-
 ---
 
 # 📅 Development Roadmap
